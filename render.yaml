@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: stadium-pulse-ai
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/core/bootstrap.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false

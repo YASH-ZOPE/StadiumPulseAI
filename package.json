@@ -1,0 +1,40 @@
+{
+  "name": "stadium-pulse-ai",
+  "version": "1.0.0",
+  "description": "Real-time stadium digital twin and event-driven decision engine for FIFA World Cup 2026 — powered by Google Gemini.",
+  "type": "module",
+  "main": "src/core/bootstrap.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node src/core/bootstrap.js",
+    "dev": "node --watch src/core/bootstrap.js",
+    "test": "cross-env NODE_ENV=test node --test",
+    "test:coverage": "cross-env NODE_ENV=test node --test --experimental-test-coverage",
+    "test:watch": "cross-env NODE_ENV=test node --test --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,mjs,json,md,css,html}\"",
+    "format:check": "prettier --check \"**/*.{js,mjs,json,md,css,html}\"",
+    "check": "npm run lint && npm run format:check && npm test",
+    "bench": "node scripts/benchmark.mjs"
+  },
+  "keywords": ["fifa", "world-cup-2026", "genai", "gemini", "digital-twin", "stadium", "operations"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^9.28.0",
+    "prettier": "^3.5.3"
+  }
+}
