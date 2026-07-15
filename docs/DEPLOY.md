@@ -35,12 +35,12 @@ docker run -p 3000:3000 \
 
 ## Environment Variables
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `PORT` | No | 3000 | HTTP server port |
-| `NODE_ENV` | No | development | Environment |
-| `GEMINI_API_KEY` | No | — | Google Gemini API key (app works without it) |
-| `GEMINI_MODEL` | No | gemini-2.0-flash | Gemini model name |
-| `AI_TIMEOUT_MS` | No | 15000 | AI request timeout |
-| `RATE_LIMIT_MAX` | No | 100 | General rate limit per minute |
-| `AI_RATE_LIMIT_MAX` | No | 20 | AI endpoint rate limit per minute |
+| Variable            | Required | Default          | Description                                  |
+| ------------------- | -------- | ---------------- | -------------------------------------------- |
+| `PORT`              | No       | 3000             | HTTP server port                             |
+| `NODE_ENV`          | No       | development      | Environment                                  |
+| `GEMINI_API_KEY`    | No       | —                | Google Gemini API key (app works without it) |
+| `GEMINI_MODEL`      | No       | gemini-2.0-flash | Gemini model name                            |
+| `AI_TIMEOUT_MS`     | No       | 15000            | AI request timeout                           |
+| `RATE_LIMIT_MAX`    | No       | 100              | General rate limit per minute                |
+| `AI_RATE_LIMIT_MAX` | No       | 20               | AI endpoint rate limit per minute            |

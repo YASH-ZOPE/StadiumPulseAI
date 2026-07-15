@@ -57,7 +57,9 @@ export function createHttpLayer(deps = {}) {
 
   /* ── 404 handler for unhandled API routes ────── */
   app.use('/api', (req, res) => {
-    res.status(404).json({ error: `API endpoint ${req.method} ${req.path} not found`, code: 'not_found' });
+    res
+      .status(404)
+      .json({ error: `API endpoint ${req.method} ${req.path} not found`, code: 'not_found' });
   });
 
   /* ── Error handler ───────────────────────────── */

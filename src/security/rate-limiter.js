@@ -31,7 +31,9 @@ export function requireJson(req, res, next) {
   if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
     const ct = req.headers['content-type'] || '';
     if (!ct.includes('application/json')) {
-      return res.status(415).json({ error: 'Content-Type must be application/json', code: 'unsupported_media_type' });
+      return res
+        .status(415)
+        .json({ error: 'Content-Type must be application/json', code: 'unsupported_media_type' });
     }
   }
   next();

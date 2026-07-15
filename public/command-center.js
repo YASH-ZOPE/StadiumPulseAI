@@ -133,18 +133,18 @@
   function renderMap() {
     if (!stadiumState?.zones) return;
     // Clear existing zone nodes
-    mapSvg.querySelectorAll('.zone-node, .zone-label, .corridor-line').forEach(el => el.remove());
+    mapSvg.querySelectorAll('.zone-node, .zone-label, .corridor-line').forEach((el) => el.remove());
 
     const zones = stadiumState.zones;
 
     // Draw corridors first (behind zones)
     fetch('/api/venue/map')
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         if (!data.corridors) return;
         for (const c of data.corridors) {
-          const fromZ = data.zones.find(z => z.id === c.from);
-          const toZ = data.zones.find(z => z.id === c.to);
+          const fromZ = data.zones.find((z) => z.id === c.from);
+          const toZ = data.zones.find((z) => z.id === c.to);
           if (!fromZ || !toZ) continue;
           const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
           line.setAttribute('x1', fromZ.x);
@@ -176,7 +176,10 @@
       circle.setAttribute('class', 'zone-node');
       circle.setAttribute('tabindex', '0');
       circle.setAttribute('role', 'button');
-      circle.setAttribute('aria-label', `${zone.label}: ${zone.densityBand} density, ${Math.round(zone.density * 100)}% capacity`);
+      circle.setAttribute(
+        'aria-label',
+        `${zone.label}: ${zone.densityBand} density, ${Math.round(zone.density * 100)}% capacity`,
+      );
       circle.addEventListener('click', () => showZoneDetail(id));
       mapSvg.appendChild(circle);
 
@@ -190,23 +193,41 @@
   }
 
   function densityColor(band) {
-    const colors = { low: 'var(--density-low)', moderate: 'var(--density-moderate)', high: 'var(--density-high)', critical: 'var(--density-critical)' };
+    const colors = {
+      low: 'var(--density-low)',
+      moderate: 'var(--density-moderate)',
+      high: 'var(--density-high)',
+      critical: 'var(--density-critical)',
+    };
     return colors[band] || colors.low;
   }
 
   function zoneRadius(type) {
-    const sizes = { gate: 3.5, concourse: 4, seating: 5, food: 2.5, restroom: 2, medical: 2, transit: 3.5, services: 2.5 };
+    const sizes = {
+      gate: 3.5,
+      concourse: 4,
+      seating: 5,
+      food: 2.5,
+      restroom: 2,
+      medical: 2,
+      transit: 3.5,
+      services: 2.5,
+    };
     return sizes[type] || 3;
   }
 
   function shortLabel(label) {
-    return label.replace('Concourse', 'Conc.').replace('Restrooms', 'WC').replace('Food Court', 'Food').replace('Guest Services', 'Services');
+    return label
+      .replace('Concourse', 'Conc.')
+      .replace('Restrooms', 'WC')
+      .replace('Food Court', 'Food')
+      .replace('Guest Services', 'Services');
   }
 
   function showZoneDetail(zoneId) {
     fetch(`/api/cascade/${zoneId}`)
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         let detail = `🏟️ Cascade Impact: ${data.sourceLabel || zoneId}\n\n`;
         detail += `${data.summary}\n\n`;
         if (data.effects?.length) {
@@ -229,13 +250,18 @@
   /* ── Queue Forecasts ─────────────────────────── */
   function renderQueues() {
     fetch('/api/forecast/queues')
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         if (!data.forecasts) return;
         queueBars.innerHTML = '';
         for (const q of data.forecasts) {
           const pct = Math.min((q.forecastWaitMinutes / 40) * 100, 100);
-          const color = q.forecastWaitMinutes >= 25 ? 'var(--danger)' : q.forecastWaitMinutes >= 15 ? 'var(--warning)' : 'var(--success)';
+          const color =
+            q.forecastWaitMinutes >= 25
+              ? 'var(--danger)'
+              : q.forecastWaitMinutes >= 15
+                ? 'var(--warning)'
+                : 'var(--success)';
           queueBars.innerHTML += `
             <div class="queue-row">
               <span class="queue-row__label" title="${q.label}">${q.label}</span>
@@ -277,7 +303,10 @@
       eventFeed.innerHTML = '<div class="event-feed__empty">Waiting for events…</div>';
       return;
     }
-    eventFeed.innerHTML = events.slice(0, 30).map(evt => `
+    eventFeed.innerHTML = events
+      .slice(0, 30)
+      .map(
+        (evt) => `
       <div class="event-item">
         <div class="event-item__dot event-item__dot--${evt.severity}"></div>
         <div class="event-item__body">
@@ -285,7 +314,9 @@
           <div class="event-item__meta">${evt.category} · ${evt.zone || 'global'} · ${timeAgo(evt.timestamp)}</div>
         </div>
       </div>
-    `).join('');
+    `,
+      )
+      .join('');
   }
 
   function formatEventText(evt) {
@@ -320,7 +351,7 @@
 
   /* ── Decisions ───────────────────────────────── */
   function renderDecisions() {
-    const pending = decisions.filter(d => d.approval?.status === 'pending');
+    const pending = decisions.filter((d) => d.approval?.status === 'pending');
     if (pending.length === 0) {
       decisionDrawer.innerHTML = `
         <div class="decision-drawer__empty">
@@ -330,7 +361,9 @@
       return;
     }
 
-    decisionDrawer.innerHTML = pending.map(d => `
+    decisionDrawer.innerHTML = pending
+      .map(
+        (d) => `
       <div class="decision-card" data-decision-id="${d.id}">
         <div class="decision-card__header">
           <span class="decision-card__source">${d.aiRecommendation.source === 'gemini' ? '✨ Gemini' : '⚙️ Rules'}</span>
@@ -338,50 +371,56 @@
         </div>
         <div class="decision-card__reasoning">${escHtml(d.aiRecommendation.reasoning || '')}</div>
         <ul class="action-list">
-          ${d.aiRecommendation.actions.map(a => `
+          ${d.aiRecommendation.actions
+            .map(
+              (a) => `
             <li class="action-item">
               <input type="checkbox" class="action-item__check" data-action-id="${a.id}" checked aria-label="Include action: ${escHtml(a.detail)}">
               <span class="action-item__priority">P${a.priority}</span>
               <span class="action-item__text">${escHtml(a.detail || a.type)}</span>
             </li>
-          `).join('')}
+          `,
+            )
+            .join('')}
         </ul>
         <div class="decision-card__actions">
           <button class="btn btn--danger btn--sm" onclick="rejectDecision('${d.id}')">Reject</button>
           <button class="btn btn--success btn--sm" onclick="approveDecision('${d.id}')">✓ Approve</button>
         </div>
       </div>
-    `).join('');
+    `,
+      )
+      .join('');
   }
 
-  window.approveDecision = function(decisionId) {
+  window.approveDecision = function (decisionId) {
     const card = document.querySelector(`[data-decision-id="${decisionId}"]`);
     const checks = card?.querySelectorAll('.action-item__check:checked') || [];
-    const approvedActions = [...checks].map(c => parseInt(c.dataset.actionId));
+    const approvedActions = [...checks].map((c) => parseInt(c.dataset.actionId));
 
     fetch('/api/commands/approve', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ decisionId, approvedActions }),
     })
-      .then(r => r.json())
-      .then(d => updateDecision(d))
-      .catch(err => console.error('Approve failed:', err));
+      .then((r) => r.json())
+      .then((d) => updateDecision(d))
+      .catch((err) => console.error('Approve failed:', err));
   };
 
-  window.rejectDecision = function(decisionId) {
+  window.rejectDecision = function (decisionId) {
     fetch('/api/commands/reject', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ decisionId, reason: 'Operator rejected' }),
     })
-      .then(r => r.json())
-      .then(d => updateDecision(d))
-      .catch(err => console.error('Reject failed:', err));
+      .then((r) => r.json())
+      .then((d) => updateDecision(d))
+      .catch((err) => console.error('Reject failed:', err));
   };
 
   function updateDecision(updated) {
-    const idx = decisions.findIndex(d => d.id === updated.id);
+    const idx = decisions.findIndex((d) => d.id === updated.id);
     if (idx >= 0) decisions[idx] = updated;
     renderDecisions();
     renderVolunteers();
@@ -391,10 +430,12 @@
   /* ── Volunteers ──────────────────────────────── */
   function renderVolunteers() {
     fetch('/api/volunteers')
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         if (!data.volunteers) return;
-        volunteerBoard.innerHTML = data.volunteers.map(v => `
+        volunteerBoard.innerHTML = data.volunteers
+          .map(
+            (v) => `
           <div class="volunteer-item">
             <div class="volunteer-item__avatar">${v.name.charAt(0)}</div>
             <div class="volunteer-item__info">
@@ -403,7 +444,9 @@
             </div>
             <span class="volunteer-item__status volunteer-item__status--${v.status}">${v.status}</span>
           </div>
-        `).join('');
+        `,
+          )
+          .join('');
       })
       .catch(() => {});
   }
@@ -411,8 +454,8 @@
   /* ── Audit Timeline ──────────────────────────── */
   function fetchTimeline() {
     fetch('/api/audit/timeline?limit=30')
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         timelineEntries = data.timeline || [];
         renderTimeline();
       })
@@ -424,9 +467,18 @@
       auditTimeline.innerHTML = '<div class="event-feed__empty">No timeline entries yet.</div>';
       return;
     }
-    auditTimeline.innerHTML = timelineEntries.slice(0, 20).map(e => {
-      const markerClass = e.entryType === 'decision' ? 'decision' : e.entryType === 'approval' ? 'approval' : e.severity === 'critical' ? 'critical' : '';
-      return `
+    auditTimeline.innerHTML = timelineEntries
+      .slice(0, 20)
+      .map((e) => {
+        const markerClass =
+          e.entryType === 'decision'
+            ? 'decision'
+            : e.entryType === 'approval'
+              ? 'approval'
+              : e.severity === 'critical'
+                ? 'critical'
+                : '';
+        return `
         <div class="timeline-item">
           <div class="timeline-item__marker timeline-item__marker--${markerClass}"></div>
           <div class="timeline-item__body">
@@ -434,7 +486,8 @@
             <div class="timeline-item__time">${timeAgo(e.timestamp)}</div>
           </div>
         </div>`;
-    }).join('');
+      })
+      .join('');
   }
 
   function onScenarioStep(stepData) {
@@ -485,11 +538,10 @@
     const firstStep = document.getElementById('scenario-step-0');
     if (firstStep) firstStep.className = 'scenario-step scenario-step--running';
 
-    fetch('/api/simulation/scenario', { method: 'POST' })
-      .catch(() => {
-        runScenarioBtn.disabled = false;
-        scenarioClose.hidden = false;
-      });
+    fetch('/api/simulation/scenario', { method: 'POST' }).catch(() => {
+      runScenarioBtn.disabled = false;
+      scenarioClose.hidden = false;
+    });
   });
 
   scenarioClose.addEventListener('click', () => {
@@ -539,14 +591,14 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question, currentZone, destination, language, accessibilityNeeds }),
       })
-        .then(async r => {
+        .then(async (r) => {
           if (!r.ok) {
             const errData = await r.json().catch(() => ({ error: `HTTP ${r.status}` }));
             throw new Error(errData.error || `HTTP ${r.status}`);
           }
           return r.json();
         })
-        .then(data => {
+        .then((data) => {
           chatSend.disabled = false;
           const facts = data.groundedFacts || {};
           chatResponse.innerHTML = `
@@ -558,7 +610,7 @@
               Grounded Facts: ${facts.from} → ${facts.to} | Crowd: ${facts.crowdLevel} | Mode: ${facts.stepFreeRequired ? 'Step-Free' : 'Standard'}
             </div>`;
         })
-        .catch(err => {
+        .catch((err) => {
           chatSend.disabled = false;
           chatResponse.innerHTML = `<span style="color:var(--danger)">Error: ${escHtml(err.message || 'Failed to get assistance')}</span>`;
         });
@@ -567,8 +619,8 @@
 
   /* ── Init ────────────────────────────────────── */
   fetch('/api/health')
-    .then(r => r.json())
-    .then(data => {
+    .then((r) => r.json())
+    .then((data) => {
       if (data.ai === 'gemini') {
         aiModeBadge.textContent = 'GEMINI';
         aiModeBadge.classList.add('active');

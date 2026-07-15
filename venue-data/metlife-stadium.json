@@ -10,71 +10,433 @@
     "languages": ["en", "es", "fr", "pt"]
   },
   "zones": [
-    { "id": "gate-a", "type": "gate", "label": "Gate A (North)", "capacity": 4500, "x": 50, "y": 5, "accessible": true },
-    { "id": "gate-b", "type": "gate", "label": "Gate B (East)", "capacity": 5000, "x": 95, "y": 50, "accessible": true },
-    { "id": "gate-c", "type": "gate", "label": "Gate C (South)", "capacity": 4500, "x": 50, "y": 95, "accessible": true },
-    { "id": "gate-d", "type": "gate", "label": "Gate D (West)", "capacity": 5000, "x": 5, "y": 50, "accessible": true },
-    { "id": "concourse-north", "type": "concourse", "label": "North Concourse", "capacity": 8000, "x": 50, "y": 20, "accessible": true },
-    { "id": "concourse-east", "type": "concourse", "label": "East Concourse", "capacity": 7500, "x": 80, "y": 50, "accessible": true },
-    { "id": "concourse-south", "type": "concourse", "label": "South Concourse", "capacity": 8000, "x": 50, "y": 80, "accessible": true },
-    { "id": "concourse-west", "type": "concourse", "label": "West Concourse", "capacity": 7500, "x": 20, "y": 50, "accessible": true },
-    { "id": "seating-lower", "type": "seating", "label": "Lower Bowl", "capacity": 35000, "x": 50, "y": 45, "accessible": true },
-    { "id": "seating-upper", "type": "seating", "label": "Upper Deck", "capacity": 28000, "x": 50, "y": 55, "accessible": false },
-    { "id": "food-court-ne", "type": "food", "label": "Food Court NE", "capacity": 1200, "x": 75, "y": 25, "accessible": true },
-    { "id": "food-court-sw", "type": "food", "label": "Food Court SW", "capacity": 1200, "x": 25, "y": 75, "accessible": true },
-    { "id": "restroom-north", "type": "restroom", "label": "Restrooms North", "capacity": 400, "x": 45, "y": 15, "accessible": true },
-    { "id": "restroom-south", "type": "restroom", "label": "Restrooms South", "capacity": 400, "x": 55, "y": 85, "accessible": true },
-    { "id": "medical-east", "type": "medical", "label": "First Aid East", "capacity": 50, "x": 85, "y": 40, "accessible": true },
-    { "id": "transit-hub", "type": "transit", "label": "Transit Hub", "capacity": 6000, "x": 50, "y": 100, "accessible": true },
-    { "id": "services-main", "type": "services", "label": "Guest Services", "capacity": 200, "x": 15, "y": 30, "accessible": true },
-    { "id": "sensory-room", "type": "services", "label": "Sensory Room", "capacity": 30, "x": 85, "y": 60, "accessible": true }
+    {
+      "id": "gate-a",
+      "type": "gate",
+      "label": "Gate A (North)",
+      "capacity": 4500,
+      "x": 50,
+      "y": 5,
+      "accessible": true
+    },
+    {
+      "id": "gate-b",
+      "type": "gate",
+      "label": "Gate B (East)",
+      "capacity": 5000,
+      "x": 95,
+      "y": 50,
+      "accessible": true
+    },
+    {
+      "id": "gate-c",
+      "type": "gate",
+      "label": "Gate C (South)",
+      "capacity": 4500,
+      "x": 50,
+      "y": 95,
+      "accessible": true
+    },
+    {
+      "id": "gate-d",
+      "type": "gate",
+      "label": "Gate D (West)",
+      "capacity": 5000,
+      "x": 5,
+      "y": 50,
+      "accessible": true
+    },
+    {
+      "id": "concourse-north",
+      "type": "concourse",
+      "label": "North Concourse",
+      "capacity": 8000,
+      "x": 50,
+      "y": 20,
+      "accessible": true
+    },
+    {
+      "id": "concourse-east",
+      "type": "concourse",
+      "label": "East Concourse",
+      "capacity": 7500,
+      "x": 80,
+      "y": 50,
+      "accessible": true
+    },
+    {
+      "id": "concourse-south",
+      "type": "concourse",
+      "label": "South Concourse",
+      "capacity": 8000,
+      "x": 50,
+      "y": 80,
+      "accessible": true
+    },
+    {
+      "id": "concourse-west",
+      "type": "concourse",
+      "label": "West Concourse",
+      "capacity": 7500,
+      "x": 20,
+      "y": 50,
+      "accessible": true
+    },
+    {
+      "id": "seating-lower",
+      "type": "seating",
+      "label": "Lower Bowl",
+      "capacity": 35000,
+      "x": 50,
+      "y": 45,
+      "accessible": true
+    },
+    {
+      "id": "seating-upper",
+      "type": "seating",
+      "label": "Upper Deck",
+      "capacity": 28000,
+      "x": 50,
+      "y": 55,
+      "accessible": false
+    },
+    {
+      "id": "food-court-ne",
+      "type": "food",
+      "label": "Food Court NE",
+      "capacity": 1200,
+      "x": 75,
+      "y": 25,
+      "accessible": true
+    },
+    {
+      "id": "food-court-sw",
+      "type": "food",
+      "label": "Food Court SW",
+      "capacity": 1200,
+      "x": 25,
+      "y": 75,
+      "accessible": true
+    },
+    {
+      "id": "restroom-north",
+      "type": "restroom",
+      "label": "Restrooms North",
+      "capacity": 400,
+      "x": 45,
+      "y": 15,
+      "accessible": true
+    },
+    {
+      "id": "restroom-south",
+      "type": "restroom",
+      "label": "Restrooms South",
+      "capacity": 400,
+      "x": 55,
+      "y": 85,
+      "accessible": true
+    },
+    {
+      "id": "medical-east",
+      "type": "medical",
+      "label": "First Aid East",
+      "capacity": 50,
+      "x": 85,
+      "y": 40,
+      "accessible": true
+    },
+    {
+      "id": "transit-hub",
+      "type": "transit",
+      "label": "Transit Hub",
+      "capacity": 6000,
+      "x": 50,
+      "y": 100,
+      "accessible": true
+    },
+    {
+      "id": "services-main",
+      "type": "services",
+      "label": "Guest Services",
+      "capacity": 200,
+      "x": 15,
+      "y": 30,
+      "accessible": true
+    },
+    {
+      "id": "sensory-room",
+      "type": "services",
+      "label": "Sensory Room",
+      "capacity": 30,
+      "x": 85,
+      "y": 60,
+      "accessible": true
+    }
   ],
   "corridors": [
-    { "from": "gate-a", "to": "concourse-north", "distance": 120, "accessible": true, "label": "Gate A ramp" },
-    { "from": "gate-b", "to": "concourse-east", "distance": 110, "accessible": true, "label": "Gate B corridor" },
-    { "from": "gate-c", "to": "concourse-south", "distance": 120, "accessible": true, "label": "Gate C ramp" },
-    { "from": "gate-d", "to": "concourse-west", "distance": 110, "accessible": true, "label": "Gate D corridor" },
-    { "from": "concourse-north", "to": "concourse-east", "distance": 200, "accessible": true, "label": "NE walkway" },
-    { "from": "concourse-east", "to": "concourse-south", "distance": 200, "accessible": true, "label": "SE walkway" },
-    { "from": "concourse-south", "to": "concourse-west", "distance": 200, "accessible": true, "label": "SW walkway" },
-    { "from": "concourse-west", "to": "concourse-north", "distance": 200, "accessible": true, "label": "NW walkway" },
-    { "from": "concourse-north", "to": "seating-lower", "distance": 80, "accessible": true, "label": "North lower entry" },
-    { "from": "concourse-south", "to": "seating-lower", "distance": 80, "accessible": true, "label": "South lower entry" },
-    { "from": "concourse-east", "to": "seating-lower", "distance": 80, "accessible": true, "label": "East lower entry" },
-    { "from": "concourse-west", "to": "seating-lower", "distance": 80, "accessible": true, "label": "West lower entry" },
-    { "from": "concourse-north", "to": "seating-upper", "distance": 150, "accessible": false, "label": "North upper stairs" },
-    { "from": "concourse-east", "to": "seating-upper", "distance": 150, "accessible": false, "label": "East upper stairs" },
-    { "from": "concourse-north", "to": "food-court-ne", "distance": 60, "accessible": true, "label": "NE food walkway" },
-    { "from": "concourse-south", "to": "food-court-sw", "distance": 60, "accessible": true, "label": "SW food walkway" },
-    { "from": "concourse-north", "to": "restroom-north", "distance": 30, "accessible": true, "label": "North restroom path" },
-    { "from": "concourse-south", "to": "restroom-south", "distance": 30, "accessible": true, "label": "South restroom path" },
-    { "from": "concourse-east", "to": "medical-east", "distance": 40, "accessible": true, "label": "Medical access" },
-    { "from": "gate-c", "to": "transit-hub", "distance": 180, "accessible": true, "label": "Transit walkway" },
-    { "from": "gate-d", "to": "transit-hub", "distance": 220, "accessible": true, "label": "West transit path" },
-    { "from": "concourse-west", "to": "services-main", "distance": 50, "accessible": true, "label": "Guest services path" },
-    { "from": "concourse-east", "to": "sensory-room", "distance": 45, "accessible": true, "label": "Sensory room path" }
+    {
+      "from": "gate-a",
+      "to": "concourse-north",
+      "distance": 120,
+      "accessible": true,
+      "label": "Gate A ramp"
+    },
+    {
+      "from": "gate-b",
+      "to": "concourse-east",
+      "distance": 110,
+      "accessible": true,
+      "label": "Gate B corridor"
+    },
+    {
+      "from": "gate-c",
+      "to": "concourse-south",
+      "distance": 120,
+      "accessible": true,
+      "label": "Gate C ramp"
+    },
+    {
+      "from": "gate-d",
+      "to": "concourse-west",
+      "distance": 110,
+      "accessible": true,
+      "label": "Gate D corridor"
+    },
+    {
+      "from": "concourse-north",
+      "to": "concourse-east",
+      "distance": 200,
+      "accessible": true,
+      "label": "NE walkway"
+    },
+    {
+      "from": "concourse-east",
+      "to": "concourse-south",
+      "distance": 200,
+      "accessible": true,
+      "label": "SE walkway"
+    },
+    {
+      "from": "concourse-south",
+      "to": "concourse-west",
+      "distance": 200,
+      "accessible": true,
+      "label": "SW walkway"
+    },
+    {
+      "from": "concourse-west",
+      "to": "concourse-north",
+      "distance": 200,
+      "accessible": true,
+      "label": "NW walkway"
+    },
+    {
+      "from": "concourse-north",
+      "to": "seating-lower",
+      "distance": 80,
+      "accessible": true,
+      "label": "North lower entry"
+    },
+    {
+      "from": "concourse-south",
+      "to": "seating-lower",
+      "distance": 80,
+      "accessible": true,
+      "label": "South lower entry"
+    },
+    {
+      "from": "concourse-east",
+      "to": "seating-lower",
+      "distance": 80,
+      "accessible": true,
+      "label": "East lower entry"
+    },
+    {
+      "from": "concourse-west",
+      "to": "seating-lower",
+      "distance": 80,
+      "accessible": true,
+      "label": "West lower entry"
+    },
+    {
+      "from": "concourse-north",
+      "to": "seating-upper",
+      "distance": 150,
+      "accessible": false,
+      "label": "North upper stairs"
+    },
+    {
+      "from": "concourse-east",
+      "to": "seating-upper",
+      "distance": 150,
+      "accessible": false,
+      "label": "East upper stairs"
+    },
+    {
+      "from": "concourse-north",
+      "to": "food-court-ne",
+      "distance": 60,
+      "accessible": true,
+      "label": "NE food walkway"
+    },
+    {
+      "from": "concourse-south",
+      "to": "food-court-sw",
+      "distance": 60,
+      "accessible": true,
+      "label": "SW food walkway"
+    },
+    {
+      "from": "concourse-north",
+      "to": "restroom-north",
+      "distance": 30,
+      "accessible": true,
+      "label": "North restroom path"
+    },
+    {
+      "from": "concourse-south",
+      "to": "restroom-south",
+      "distance": 30,
+      "accessible": true,
+      "label": "South restroom path"
+    },
+    {
+      "from": "concourse-east",
+      "to": "medical-east",
+      "distance": 40,
+      "accessible": true,
+      "label": "Medical access"
+    },
+    {
+      "from": "gate-c",
+      "to": "transit-hub",
+      "distance": 180,
+      "accessible": true,
+      "label": "Transit walkway"
+    },
+    {
+      "from": "gate-d",
+      "to": "transit-hub",
+      "distance": 220,
+      "accessible": true,
+      "label": "West transit path"
+    },
+    {
+      "from": "concourse-west",
+      "to": "services-main",
+      "distance": 50,
+      "accessible": true,
+      "label": "Guest services path"
+    },
+    {
+      "from": "concourse-east",
+      "to": "sensory-room",
+      "distance": 45,
+      "accessible": true,
+      "label": "Sensory room path"
+    }
   ],
   "volunteers": [
-    { "id": "v-01", "name": "Carlos M.", "role": "steward", "languages": ["en", "es"], "zone": "gate-b" },
-    { "id": "v-02", "name": "Aisha K.", "role": "accessibility", "languages": ["en", "ar", "fr"], "zone": "services-main" },
-    { "id": "v-03", "name": "Yuki T.", "role": "medical", "languages": ["en", "ja"], "zone": "medical-east" },
-    { "id": "v-04", "name": "Priya S.", "role": "guest-services", "languages": ["en", "hi"], "zone": "gate-a" },
-    { "id": "v-05", "name": "Lucas R.", "role": "transport", "languages": ["en", "pt"], "zone": "transit-hub" },
-    { "id": "v-06", "name": "Fatima Z.", "role": "steward", "languages": ["en", "ar"], "zone": "gate-c" },
-    { "id": "v-07", "name": "Chen W.", "role": "steward", "languages": ["en", "zh"], "zone": "concourse-north" },
-    { "id": "v-08", "name": "Maria G.", "role": "guest-services", "languages": ["en", "es", "pt"], "zone": "food-court-ne" },
-    { "id": "v-09", "name": "David L.", "role": "medical", "languages": ["en", "fr"], "zone": "concourse-south" },
-    { "id": "v-10", "name": "Soo-Jin P.", "role": "accessibility", "languages": ["en", "ko"], "zone": "sensory-room" }
+    {
+      "id": "v-01",
+      "name": "Carlos M.",
+      "role": "steward",
+      "languages": ["en", "es"],
+      "zone": "gate-b"
+    },
+    {
+      "id": "v-02",
+      "name": "Aisha K.",
+      "role": "accessibility",
+      "languages": ["en", "ar", "fr"],
+      "zone": "services-main"
+    },
+    {
+      "id": "v-03",
+      "name": "Yuki T.",
+      "role": "medical",
+      "languages": ["en", "ja"],
+      "zone": "medical-east"
+    },
+    {
+      "id": "v-04",
+      "name": "Priya S.",
+      "role": "guest-services",
+      "languages": ["en", "hi"],
+      "zone": "gate-a"
+    },
+    {
+      "id": "v-05",
+      "name": "Lucas R.",
+      "role": "transport",
+      "languages": ["en", "pt"],
+      "zone": "transit-hub"
+    },
+    {
+      "id": "v-06",
+      "name": "Fatima Z.",
+      "role": "steward",
+      "languages": ["en", "ar"],
+      "zone": "gate-c"
+    },
+    {
+      "id": "v-07",
+      "name": "Chen W.",
+      "role": "steward",
+      "languages": ["en", "zh"],
+      "zone": "concourse-north"
+    },
+    {
+      "id": "v-08",
+      "name": "Maria G.",
+      "role": "guest-services",
+      "languages": ["en", "es", "pt"],
+      "zone": "food-court-ne"
+    },
+    {
+      "id": "v-09",
+      "name": "David L.",
+      "role": "medical",
+      "languages": ["en", "fr"],
+      "zone": "concourse-south"
+    },
+    {
+      "id": "v-10",
+      "name": "Soo-Jin P.",
+      "role": "accessibility",
+      "languages": ["en", "ko"],
+      "zone": "sensory-room"
+    }
   ],
   "queuePoints": [
     { "id": "q-gate-a", "zone": "gate-a", "label": "Gate A Entry", "throughputPerMin": 45 },
     { "id": "q-gate-b", "zone": "gate-b", "label": "Gate B Entry", "throughputPerMin": 50 },
     { "id": "q-gate-c", "zone": "gate-c", "label": "Gate C Entry", "throughputPerMin": 45 },
     { "id": "q-gate-d", "zone": "gate-d", "label": "Gate D Entry", "throughputPerMin": 50 },
-    { "id": "q-food-ne", "zone": "food-court-ne", "label": "Food Court NE", "throughputPerMin": 20 },
-    { "id": "q-food-sw", "zone": "food-court-sw", "label": "Food Court SW", "throughputPerMin": 20 },
-    { "id": "q-restroom-n", "zone": "restroom-north", "label": "Restrooms North", "throughputPerMin": 30 },
-    { "id": "q-restroom-s", "zone": "restroom-south", "label": "Restrooms South", "throughputPerMin": 30 },
+    {
+      "id": "q-food-ne",
+      "zone": "food-court-ne",
+      "label": "Food Court NE",
+      "throughputPerMin": 20
+    },
+    {
+      "id": "q-food-sw",
+      "zone": "food-court-sw",
+      "label": "Food Court SW",
+      "throughputPerMin": 20
+    },
+    {
+      "id": "q-restroom-n",
+      "zone": "restroom-north",
+      "label": "Restrooms North",
+      "throughputPerMin": 30
+    },
+    {
+      "id": "q-restroom-s",
+      "zone": "restroom-south",
+      "label": "Restrooms South",
+      "throughputPerMin": 30
+    },
     { "id": "q-transit", "zone": "transit-hub", "label": "Transit Queue", "throughputPerMin": 60 }
   ],
   "match": {

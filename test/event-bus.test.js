@@ -14,22 +14,30 @@ describe('EventBus', () => {
 
   it('should deliver events to subscribers', () => {
     let received = null;
-    bus.on('test', (payload) => { received = payload; });
+    bus.on('test', (payload) => {
+      received = payload;
+    });
     bus.emit('test', { value: 42 });
     assert.deepEqual(received, { value: 42 });
   });
 
   it('should support multiple subscribers on the same topic', () => {
     let count = 0;
-    bus.on('multi', () => { count++; });
-    bus.on('multi', () => { count++; });
+    bus.on('multi', () => {
+      count++;
+    });
+    bus.on('multi', () => {
+      count++;
+    });
     bus.emit('multi', {});
     assert.equal(count, 2);
   });
 
   it('should not deliver events to unsubscribed handlers', () => {
     let called = false;
-    const handler = () => { called = true; };
+    const handler = () => {
+      called = true;
+    };
     bus.on('unsub', handler);
     bus.off('unsub', handler);
     bus.emit('unsub', {});
@@ -38,7 +46,9 @@ describe('EventBus', () => {
 
   it('should return an unsubscribe function from on()', () => {
     let called = false;
-    const unsub = bus.on('auto-unsub', () => { called = true; });
+    const unsub = bus.on('auto-unsub', () => {
+      called = true;
+    });
     unsub();
     bus.emit('auto-unsub', {});
     assert.equal(called, false);
@@ -61,9 +71,13 @@ describe('EventBus', () => {
   });
 
   it('should isolate handler errors', () => {
-    bus.on('error-test', () => { throw new Error('boom'); });
+    bus.on('error-test', () => {
+      throw new Error('boom');
+    });
     let received = false;
-    bus.on('error-test', () => { received = true; });
+    bus.on('error-test', () => {
+      received = true;
+    });
     bus.emit('error-test', {});
     assert.equal(received, true); // second handler still runs
   });

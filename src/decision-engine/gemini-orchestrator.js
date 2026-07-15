@@ -116,15 +116,41 @@ export class GeminiOrchestrator {
       'Respond ONLY with valid JSON: { "reasoning": "...", "actions": [...], "confidence": 0.0-1.0 }',
     ].join(' ');
 
-    const situationReport = sanitize(JSON.stringify({
-      risk: { type: riskReport.type, severity: riskReport.severity, zone: riskReport.zone, detail: riskReport.detail },
-      cascade: { riskLevel: cascadeImpact?.riskLevel, summary: cascadeImpact?.summary, affectedZones: cascadeImpact?.effects?.length || 0 },
-      hotspots: snapshot.zones ? Object.values(snapshot.zones).filter((z) => z.densityBand === 'critical' || z.densityBand === 'high').map((z) => ({ id: z.id, density: z.density, band: z.densityBand })) : [],
-      weather: snapshot.weather,
-      openIncidents: snapshot.incidents ? Object.values(snapshot.incidents).filter((i) => i.status !== 'resolved').length : 0,
-      availableVolunteers: snapshot.volunteers?.filter((v) => v.status === 'available').map((v) => ({ id: v.id, name: v.name, role: v.role, zone: v.zone, languages: v.languages })) || [],
-      brokenAccessibleRoutes: snapshot.accessibility?.brokenRoutes?.length || 0,
-    }));
+    const situationReport = sanitize(
+      JSON.stringify({
+        risk: {
+          type: riskReport.type,
+          severity: riskReport.severity,
+          zone: riskReport.zone,
+          detail: riskReport.detail,
+        },
+        cascade: {
+          riskLevel: cascadeImpact?.riskLevel,
+          summary: cascadeImpact?.summary,
+          affectedZones: cascadeImpact?.effects?.length || 0,
+        },
+        hotspots: snapshot.zones
+          ? Object.values(snapshot.zones)
+              .filter((z) => z.densityBand === 'critical' || z.densityBand === 'high')
+              .map((z) => ({ id: z.id, density: z.density, band: z.densityBand }))
+          : [],
+        weather: snapshot.weather,
+        openIncidents: snapshot.incidents
+          ? Object.values(snapshot.incidents).filter((i) => i.status !== 'resolved').length
+          : 0,
+        availableVolunteers:
+          snapshot.volunteers
+            ?.filter((v) => v.status === 'available')
+            .map((v) => ({
+              id: v.id,
+              name: v.name,
+              role: v.role,
+              zone: v.zone,
+              languages: v.languages,
+            })) || [],
+        brokenAccessibleRoutes: snapshot.accessibility?.brokenRoutes?.length || 0,
+      }),
+    );
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), env.gemini.timeoutMs);
@@ -137,7 +163,9 @@ export class GeminiOrchestrator {
         headers: { 'Content-Type': 'application/json' },
         signal: controller.signal,
         body: JSON.stringify({
-          contents: [{ parts: [{ text: `${systemPrompt}\n\nSITUATION REPORT:\n${situationReport}` }] }],
+          contents: [
+            { parts: [{ text: `${systemPrompt}\n\nSITUATION REPORT:\n${situationReport}` }] },
+          ],
           generationConfig: {
             maxOutputTokens: env.gemini.maxTokens,
             temperature: 0.3,
@@ -228,7 +256,13 @@ export class GeminiOrchestrator {
    * @param {object} input - { question, currentZone, destination, language, accessibilityNeeds }
    * @returns {Promise<object>} { answer, language, groundedFacts, usedLlm }
    */
-  async answerFanQuestion({ question, currentZone = 'gate-b', destination = 'sensory-room', language = 'en', accessibilityNeeds = [] } = {}) {
+  async answerFanQuestion({
+    question,
+    currentZone = 'gate-b',
+    destination = 'sensory-room',
+    language = 'en',
+    accessibilityNeeds = [],
+  } = {}) {
     const snapshot = this._state.getSnapshot();
     const fromZone = snapshot.zones[currentZone] || snapshot.zones['gate-b'];
     const toZone = snapshot.zones[destination] || snapshot.zones['sensory-room'];
@@ -285,7 +319,9 @@ export class GeminiOrchestrator {
         const data = await response.json();
         const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
         return {
-          answer: text.trim() || `Route from ${groundedFacts.from} to ${groundedFacts.to} resolved. Crowd level is ${groundedFacts.crowdLevel}.`,
+          answer:
+            text.trim() ||
+            `Route from ${groundedFacts.from} to ${groundedFacts.to} resolved. Crowd level is ${groundedFacts.crowdLevel}.`,
           language,
           groundedFacts,
           usedLlm: true,

@@ -10,31 +10,34 @@
 
 > Build a GenAI-enabled solution that enhances stadium operations and the overall tournament experience for fans, organizers, volunteers, or venue staff during FIFA World Cup 2026.
 
-| FIFA Challenge Vertical | Our Solution | Key AI Capability |
-|-------------------------|--------------|-------------------|
-| **Crowd Management** | Real-time zone density monitoring & risk detection | Density band categorization & cascade simulation |
-| **Accessibility & Navigation** | Accessibility Guardian & pathfinder | Step-free route computation & alternative pathfinding |
-| **Multilingual Assistance** | Multilingual Alert Composer & AI Fan Assistant | Gemini-powered Q&A & announcement translation (EN, ES, FR, PT) |
-| **Operational Intelligence** | Cascade Impact Simulator | Predicts cross-zone crowd flow spillover before it occurs |
-| **Real-Time Decision Support** | AI Incident Commander & Approval Gate | Multi-team coordinated action plan generation with human-in-the-loop control |
-| **Transportation** | Transit pressure monitoring & shuttle adjustment | Adaptive transit routing based on weather & crowd volume |
+| FIFA Challenge Vertical        | Our Solution                                       | Key AI Capability                                                            |
+| ------------------------------ | -------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Crowd Management**           | Real-time zone density monitoring & risk detection | Density band categorization & cascade simulation                             |
+| **Accessibility & Navigation** | Accessibility Guardian & pathfinder                | Step-free route computation & alternative pathfinding                        |
+| **Multilingual Assistance**    | Multilingual Alert Composer & AI Fan Assistant     | Gemini-powered Q&A & announcement translation (EN, ES, FR, PT)               |
+| **Operational Intelligence**   | Cascade Impact Simulator                           | Predicts cross-zone crowd flow spillover before it occurs                    |
+| **Real-Time Decision Support** | AI Incident Commander & Approval Gate              | Multi-team coordinated action plan generation with human-in-the-loop control |
+| **Transportation**             | Transit pressure monitoring & shuttle adjustment   | Adaptive transit routing based on weather & crowd volume                     |
 
 ---
 
 ## 🏛️ Command Center Dashboard Breakdown
 
 ### 1. 🗺️ Digital Twin & Cascade Simulator (Left Panel)
+
 - **Interactive Stadium Map**: Live SVG graph of MetLife Stadium (18 operational zones + corridors).
 - **Dynamic Color Coding**: Nodes resize and change state in real-time based on density:
   - 🟢 **Low** (<40% capacity) | 🟡 **Moderate** (40-70%) | 🟠 **High** (70-85%) | 🔴 **Critical** (>85%)
 - **Cascade Impact Simulator**: Click any zone to preview how closing or restricting it will redistribute crowds across connected zones and affect wheelchair pathways.
 
 ### 2. ⚡ Live Operations (Middle Panel)
+
 - **Active Risk Cards**: Real-time cards flagging critical crowding, excessive queues, weather threats, and accessibility route breaks.
 - **Queue Forecast Engine**: Arrival-rate predictive model forecasting wait times over a 15-minute lookahead window across 9 gate and concession queue points.
 - **WebSocket Event Stream**: Real-time event log streaming all sensor and operator signals via `/ws/pulse`.
 
 ### 3. 🤖 AI Decision Center & Fan Assistant (Right Panel & Floating Drawer)
+
 - **AI Incident Commander**: Gemini generates coordinated response plans across security, volunteers, accessibility, announcements, and transit.
 - **Human-in-the-Loop Approval Gate**: Operators can approve all, approve a subset, or reject recommendations before execution.
 - **Volunteer Dispatch Board**: Dynamic roster auto-matching volunteer roles, language skills, and location to approved actions.
@@ -117,6 +120,7 @@ Event Sources (Sensors/Weather/Staff)
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
+
 - Node.js ≥ 20
 - npm
 
@@ -135,6 +139,7 @@ cp .env.example .env
 ```
 
 Edit `.env` and set your Google Gemini API Key:
+
 ```env
 GEMINI_API_KEY=AIzaSy...your-gemini-key...
 GEMINI_MODEL=gemini-2.0-flash
@@ -184,28 +189,29 @@ npm run format:check
 ## 📡 REST & WebSocket API Reference
 
 ### WebSocket API
+
 - **Endpoint**: `WS /ws/pulse`
 - **Events Streamed**: `state:snapshot`, `state:diff`, `event:new`, `decision:new`, `decision:updated`, `decision:approved`, `scenario:step`.
 
 ### REST API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/health` | Service health & AI provider status (`gemini` / `offline`) |
-| `GET` | `/api/metrics` | AI call metrics & audit stats |
-| `GET` | `/api/state/snapshot` | Complete stadium state tree |
-| `GET` | `/api/state/zones/:zoneId` | Details for a specific zone |
-| `GET` | `/api/venue/map` | Zone topology & corridor connectivity |
-| `GET` | `/api/forecast/queues` | Live queue predictions for all 9 points |
-| `GET` | `/api/cascade/:zoneId` | Preview cascade simulation for a zone |
-| `GET` | `/api/volunteers` | Active volunteer roster & assignments |
-| `GET` | `/api/audit/timeline` | Ordered audit trail log |
-| `GET` | `/api/decisions/pending` | List pending AI recommendations |
-| `POST` | `/api/commands/approve` | Approve AI decision actions |
-| `POST` | `/api/commands/reject` | Reject AI decision recommendation |
-| `POST` | `/api/commands/inject-event` | Inject custom telemetry event |
-| `POST` | `/api/simulation/scenario` | Execute 11-step connected demo |
-| `POST` | `/api/assist` | AI Fan Assistant grounded Q&A chatbot |
+| Method | Endpoint                     | Description                                                |
+| ------ | ---------------------------- | ---------------------------------------------------------- |
+| `GET`  | `/api/health`                | Service health & AI provider status (`gemini` / `offline`) |
+| `GET`  | `/api/metrics`               | AI call metrics & audit stats                              |
+| `GET`  | `/api/state/snapshot`        | Complete stadium state tree                                |
+| `GET`  | `/api/state/zones/:zoneId`   | Details for a specific zone                                |
+| `GET`  | `/api/venue/map`             | Zone topology & corridor connectivity                      |
+| `GET`  | `/api/forecast/queues`       | Live queue predictions for all 9 points                    |
+| `GET`  | `/api/cascade/:zoneId`       | Preview cascade simulation for a zone                      |
+| `GET`  | `/api/volunteers`            | Active volunteer roster & assignments                      |
+| `GET`  | `/api/audit/timeline`        | Ordered audit trail log                                    |
+| `GET`  | `/api/decisions/pending`     | List pending AI recommendations                            |
+| `POST` | `/api/commands/approve`      | Approve AI decision actions                                |
+| `POST` | `/api/commands/reject`       | Reject AI decision recommendation                          |
+| `POST` | `/api/commands/inject-event` | Inject custom telemetry event                              |
+| `POST` | `/api/simulation/scenario`   | Execute 11-step connected demo                             |
+| `POST` | `/api/assist`                | AI Fan Assistant grounded Q&A chatbot                      |
 
 ---
 

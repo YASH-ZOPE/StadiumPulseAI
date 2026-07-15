@@ -122,7 +122,9 @@ function executeAction(action, decision, context) {
 const { app, wss } = createHttpLayer(ctx);
 
 const server = app.listen(env.port, () => {
-  console.log(`[Stadium Pulse AI] listening on :${env.port}  env=${env.nodeEnv}  ai=${env.gemini.enabled ? 'gemini' : 'offline'}`);
+  console.log(
+    `[Stadium Pulse AI] listening on :${env.port}  env=${env.nodeEnv}  ai=${env.gemini.enabled ? 'gemini' : 'offline'}`,
+  );
 });
 
 server.on('upgrade', (req, socket, head) => {

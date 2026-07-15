@@ -46,22 +46,29 @@ export class CascadeSimulator {
       return { effects, riskLevel: 'low', summary: 'Unknown zone' };
     }
 
-    const displacedOccupancy = sourceZone.status === 'closed'
-      ? sourceZone.currentOccupancy
-      : Math.round(sourceZone.currentOccupancy * 0.3);
+    const displacedOccupancy =
+      sourceZone.status === 'closed'
+        ? sourceZone.currentOccupancy
+        : Math.round(sourceZone.currentOccupancy * 0.3);
 
     const openNeighbours = connectedZones
       .map((id) => snapshot.zones[id])
       .filter((z) => z && z.status === 'open');
 
-    const perNeighbour = openNeighbours.length > 0
-      ? Math.round(displacedOccupancy / openNeighbours.length)
-      : 0;
+    const perNeighbour =
+      openNeighbours.length > 0 ? Math.round(displacedOccupancy / openNeighbours.length) : 0;
 
     for (const neighbour of openNeighbours) {
       const newOccupancy = neighbour.currentOccupancy + perNeighbour;
       const newDensity = newOccupancy / neighbour.capacity;
-      const newBand = newDensity >= 0.85 ? 'critical' : newDensity >= 0.7 ? 'high' : newDensity >= 0.4 ? 'moderate' : 'low';
+      const newBand =
+        newDensity >= 0.85
+          ? 'critical'
+          : newDensity >= 0.7
+            ? 'high'
+            : newDensity >= 0.4
+              ? 'moderate'
+              : 'low';
 
       effects.push({
         zone: neighbour.id,
@@ -78,7 +85,10 @@ export class CascadeSimulator {
     /* Check accessibility impact. */
     const accessibilityImpact = [];
     for (const edge of edges) {
-      if (edge.accessible && (sourceZone.status === 'closed' || sourceZone.status === 'emergency')) {
+      if (
+        edge.accessible &&
+        (sourceZone.status === 'closed' || sourceZone.status === 'emergency')
+      ) {
         accessibilityImpact.push({
           corridor: edge.label,
           from: edge.from || affectedZone,
@@ -105,7 +115,14 @@ export class CascadeSimulator {
     }
 
     const criticalEffects = effects.filter((e) => e.wouldBreachThreshold);
-    const riskLevel = criticalEffects.length >= 2 ? 'critical' : criticalEffects.length === 1 ? 'high' : effects.length > 0 ? 'elevated' : 'low';
+    const riskLevel =
+      criticalEffects.length >= 2
+        ? 'critical'
+        : criticalEffects.length === 1
+          ? 'high'
+          : effects.length > 0
+            ? 'elevated'
+            : 'low';
 
     return {
       sourceZone: affectedZone,
@@ -122,7 +139,9 @@ export class CascadeSimulator {
   /** Handle global risks (weather, multi-incident) that affect all zones. */
   _analyzeGlobalRisk(riskReport, snapshot) {
     const zones = Object.values(snapshot.zones);
-    const highDensityZones = zones.filter((z) => z.densityBand === 'high' || z.densityBand === 'critical');
+    const highDensityZones = zones.filter(
+      (z) => z.densityBand === 'high' || z.densityBand === 'critical',
+    );
 
     return {
       sourceZone: null,

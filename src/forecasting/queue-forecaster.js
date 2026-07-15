@@ -36,7 +36,8 @@ export class QueueForecaster {
 
       /* Queue builds when arrivals exceed throughput. */
       const surplus = Math.max(0, arrivalRate - q.throughputPerMin);
-      const forecastWait = q.currentWaitMinutes + (surplus * this._lookaheadMin) / Math.max(q.throughputPerMin, 1);
+      const forecastWait =
+        q.currentWaitMinutes + (surplus * this._lookaheadMin) / Math.max(q.throughputPerMin, 1);
 
       const forecast = {
         queueId: q.id,
@@ -60,7 +61,11 @@ export class QueueForecaster {
           type: 'forecast-threshold',
           zone: q.zone,
           severity: forecastWait >= 30 ? 'critical' : 'warning',
-          payload: { queueId: q.id, forecastWaitMinutes: forecast.forecastWaitMinutes, trend: q.trend },
+          payload: {
+            queueId: q.id,
+            forecastWaitMinutes: forecast.forecastWaitMinutes,
+            trend: q.trend,
+          },
           triggeredBy: null,
           cascadeDepth: 1,
         });

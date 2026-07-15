@@ -16,18 +16,18 @@ WebSocket ← ActionDispatch ← ApprovalGate ← GeminiOrchestrator/RuleEngine
 
 ### Domain Modules
 
-| Module | Responsibility |
-|--------|---------------|
-| `event-stream/` | EventBus (pub/sub), event schema validation |
-| `stadium-state/` | Mutable state tree, risk threshold detection, accessibility route checking |
-| `forecasting/` | Queue time prediction (arrival-rate model), cascade impact propagation |
-| `decision-engine/` | Gemini API orchestration, deterministic rule fallback, human approval gate |
-| `dispatch/` | Volunteer assignment optimization, multilingual alert composition, fan rerouting |
-| `digital-twin/` | Venue graph (zones + corridors), BFS pathfinding |
-| `audit/` | Immutable event/decision timeline |
-| `simulation/` | Connected demo scenario runner |
-| `transport/` | REST routes, WebSocket handler |
-| `security/` | Rate limiting, input sanitization, security headers |
+| Module             | Responsibility                                                                   |
+| ------------------ | -------------------------------------------------------------------------------- |
+| `event-stream/`    | EventBus (pub/sub), event schema validation                                      |
+| `stadium-state/`   | Mutable state tree, risk threshold detection, accessibility route checking       |
+| `forecasting/`     | Queue time prediction (arrival-rate model), cascade impact propagation           |
+| `decision-engine/` | Gemini API orchestration, deterministic rule fallback, human approval gate       |
+| `dispatch/`        | Volunteer assignment optimization, multilingual alert composition, fan rerouting |
+| `digital-twin/`    | Venue graph (zones + corridors), BFS pathfinding                                 |
+| `audit/`           | Immutable event/decision timeline                                                |
+| `simulation/`      | Connected demo scenario runner                                                   |
+| `transport/`       | REST routes, WebSocket handler                                                   |
+| `security/`        | Rate limiting, input sanitization, security headers                              |
 
 ### AI Integration
 
@@ -36,6 +36,7 @@ Google Gemini receives the **full stadium situation context** (risk report + cas
 ### State Model
 
 The `StadiumState` is a living object containing:
+
 - Zone occupancy and density bands (18 zones)
 - Queue wait times and forecasts (9 queue points)
 - Weather conditions and operational impact

@@ -20,20 +20,20 @@ describe('StateEngine', () => {
   it('should initialize with all venue zones', () => {
     const zones = state.getZones();
     assert.ok(zones.length > 0);
-    assert.ok(zones.every(z => z.status === 'open'));
-    assert.ok(zones.every(z => z.density === 0));
+    assert.ok(zones.every((z) => z.status === 'open'));
+    assert.ok(zones.every((z) => z.density === 0));
   });
 
   it('should initialize with all queue points', () => {
     const queues = state.getQueues();
     assert.ok(queues.length > 0);
-    assert.ok(queues.every(q => q.currentWaitMinutes === 0));
+    assert.ok(queues.every((q) => q.currentWaitMinutes === 0));
   });
 
   it('should initialize with volunteers', () => {
     const vols = state.getVolunteers();
     assert.ok(vols.length > 0);
-    assert.ok(vols.every(v => v.status === 'available'));
+    assert.ok(vols.every((v) => v.status === 'available'));
   });
 
   it('should apply crowd events via density', () => {
@@ -72,41 +72,79 @@ describe('StateEngine', () => {
   });
 
   it('should apply weather events', () => {
-    state.applyEvent({ category: 'weather', payload: { condition: 'thunderstorm', severity: 'warning' } });
+    state.applyEvent({
+      category: 'weather',
+      payload: { condition: 'thunderstorm', severity: 'warning' },
+    });
     const w = state.getWeather();
     assert.equal(w.condition, 'thunderstorm');
     assert.equal(w.severity, 'warning');
   });
 
   it('should apply incident events', () => {
-    state.applyEvent({ category: 'incident', type: 'incident-report', zone: 'gate-b', severity: 'critical', payload: { type: 'medical', detail: 'Test', incidentId: 'inc-1' }, id: 'evt-1', timestamp: new Date().toISOString() });
+    state.applyEvent({
+      category: 'incident',
+      type: 'incident-report',
+      zone: 'gate-b',
+      severity: 'critical',
+      payload: { type: 'medical', detail: 'Test', incidentId: 'inc-1' },
+      id: 'evt-1',
+      timestamp: new Date().toISOString(),
+    });
     const incidents = state.getOpenIncidents();
     assert.equal(incidents.length, 1);
     assert.equal(incidents[0].type, 'medical');
   });
 
   it('should resolve incidents', () => {
-    state.applyEvent({ category: 'incident', type: 'incident-report', zone: 'gate-b', severity: 'critical', payload: { incidentId: 'inc-2' }, id: 'evt-2', timestamp: new Date().toISOString() });
-    state.applyEvent({ category: 'incident', type: 'incident-resolved', payload: { incidentId: 'inc-2' } });
+    state.applyEvent({
+      category: 'incident',
+      type: 'incident-report',
+      zone: 'gate-b',
+      severity: 'critical',
+      payload: { incidentId: 'inc-2' },
+      id: 'evt-2',
+      timestamp: new Date().toISOString(),
+    });
+    state.applyEvent({
+      category: 'incident',
+      type: 'incident-resolved',
+      payload: { incidentId: 'inc-2' },
+    });
     assert.equal(state.getOpenIncidents().length, 0);
   });
 
   it('should update transport state', () => {
-    state.applyEvent({ category: 'transport', payload: { transitLoad: 'high', shuttleStatus: 'delayed' } });
+    state.applyEvent({
+      category: 'transport',
+      payload: { transitLoad: 'high', shuttleStatus: 'delayed' },
+    });
     const t = state.getTransport();
     assert.equal(t.transitLoad, 'high');
     assert.equal(t.shuttleStatus, 'delayed');
   });
 
   it('should track accessibility broken routes', () => {
-    state.applyEvent({ category: 'accessibility', type: 'route-broken', payload: { from: 'a', to: 'b', reason: 'test' } });
+    state.applyEvent({
+      category: 'accessibility',
+      type: 'route-broken',
+      payload: { from: 'a', to: 'b', reason: 'test' },
+    });
     const snap = state.getSnapshot();
     assert.equal(snap.accessibility.brokenRoutes.length, 1);
   });
 
   it('should restore accessibility routes', () => {
-    state.applyEvent({ category: 'accessibility', type: 'route-broken', payload: { from: 'a', to: 'b' } });
-    state.applyEvent({ category: 'accessibility', type: 'route-restored', payload: { from: 'a', to: 'b' } });
+    state.applyEvent({
+      category: 'accessibility',
+      type: 'route-broken',
+      payload: { from: 'a', to: 'b' },
+    });
+    state.applyEvent({
+      category: 'accessibility',
+      type: 'route-restored',
+      payload: { from: 'a', to: 'b' },
+    });
     assert.equal(state.getSnapshot().accessibility.brokenRoutes.length, 0);
   });
 
@@ -119,7 +157,7 @@ describe('StateEngine', () => {
     const vols = state.getVolunteers();
     const first = vols[0];
     state.assignVolunteer(first.id, 'Crowd management', 'gate-b');
-    const updated = state.getVolunteers().find(v => v.id === first.id);
+    const updated = state.getVolunteers().find((v) => v.id === first.id);
     assert.equal(updated.status, 'assigned');
     assert.equal(updated.currentAssignment, 'Crowd management');
     assert.equal(updated.zone, 'gate-b');
@@ -127,19 +165,21 @@ describe('StateEngine', () => {
 
   it('should filter available volunteers by role', () => {
     const stewards = state.getAvailableVolunteers('steward');
-    assert.ok(stewards.every(v => v.role === 'steward'));
+    assert.ok(stewards.every((v) => v.role === 'steward'));
   });
 
   it('should return hotspots', () => {
     state.applyEvent({ category: 'crowd', zone: 'gate-b', payload: { density: 0.9 } });
     const hotspots = state.getHotspots();
     assert.ok(hotspots.length >= 1);
-    assert.ok(hotspots.some(z => z.id === 'gate-b'));
+    assert.ok(hotspots.some((z) => z.id === 'gate-b'));
   });
 
   it('should emit state:changed on event application', () => {
     let emitted = false;
-    bus.on('state:changed', () => { emitted = true; });
+    bus.on('state:changed', () => {
+      emitted = true;
+    });
     state.applyEvent({ category: 'crowd', zone: 'gate-a', payload: { density: 0.5 } });
     assert.ok(emitted);
   });

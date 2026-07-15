@@ -3,11 +3,22 @@
  */
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { createEvent, EventValidationError, CATEGORIES, SEVERITIES } from '../src/event-stream/event-schema.js';
+import {
+  createEvent,
+  EventValidationError,
+  CATEGORIES,
+  SEVERITIES,
+} from '../src/event-stream/event-schema.js';
 
 describe('createEvent', () => {
   it('should create a valid event with all required fields', () => {
-    const evt = createEvent({ category: 'crowd', type: 'density-spike', zone: 'gate-a', severity: 'warning', payload: { density: 0.87 } });
+    const evt = createEvent({
+      category: 'crowd',
+      type: 'density-spike',
+      zone: 'gate-a',
+      severity: 'warning',
+      payload: { density: 0.87 },
+    });
     assert.ok(evt.id.startsWith('evt-'));
     assert.equal(evt.category, 'crowd');
     assert.equal(evt.type, 'density-spike');
@@ -57,7 +68,12 @@ describe('createEvent', () => {
   });
 
   it('should preserve triggeredBy and cascadeDepth', () => {
-    const evt = createEvent({ category: 'crowd', type: 'cascade', triggeredBy: 'evt-123', cascadeDepth: 2 });
+    const evt = createEvent({
+      category: 'crowd',
+      type: 'cascade',
+      triggeredBy: 'evt-123',
+      cascadeDepth: 2,
+    });
     assert.equal(evt.triggeredBy, 'evt-123');
     assert.equal(evt.cascadeDepth, 2);
   });

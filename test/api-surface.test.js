@@ -40,7 +40,7 @@ describe('API Contract', () => {
       '/api/decisions/pending',
     ];
     assert.equal(routes.length, 16);
-    assert.ok(routes.every(r => r.startsWith('/api/')));
+    assert.ok(routes.every((r) => r.startsWith('/api/')));
   });
 
   /* ── Input validation contracts ──────────────── */

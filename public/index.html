@@ -1,177 +1,254 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Stadium Pulse AI — Real-time digital twin and AI decision engine for FIFA World Cup 2026 stadium operations.">
-  <title>Stadium Pulse AI — Operations Command Center</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/command-center.css">
-  <link rel="stylesheet" href="styles/components.css">
-</head>
-<body>
-  <!-- Skip-to-content for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Stadium Pulse AI — Real-time digital twin and AI decision engine for FIFA World Cup 2026 stadium operations."
+    />
+    <title>Stadium Pulse AI — Operations Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/command-center.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+  </head>
+  <body>
+    <!-- Skip-to-content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Top Bar -->
-  <header class="topbar" role="banner">
-    <div class="topbar__brand">
-      <svg class="topbar__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2a10 10 0 0 1 0 20" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="var(--accent)"/></svg>
-      <h1 class="topbar__title">Stadium Pulse AI</h1>
-      <span class="topbar__badge" id="ai-mode-badge">OFFLINE</span>
-    </div>
-    <div class="topbar__status">
-      <span class="topbar__venue" id="venue-name">MetLife Stadium</span>
-      <span class="topbar__phase" id="match-phase">PRE-MATCH</span>
-      <span class="topbar__weather" id="weather-badge" aria-label="Weather status">☀️ Clear</span>
-      <button class="topbar__btn" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">🌙</button>
-    </div>
-  </header>
-
-  <!-- Main Content Layout -->
-  <main id="main-content" class="command-center" role="main">
-
-    <!-- Column 1: Stadium Digital Twin Map -->
-    <section class="panel panel--map" aria-label="Stadium Digital Twin">
-      <div class="panel__header">
-        <h2 class="panel__title">Digital Twin</h2>
-        <button class="btn btn--sm btn--accent" id="run-scenario-btn" aria-label="Run connected demo scenario">▶ Run Demo</button>
-      </div>
-      <div class="stadium-map" id="stadium-map" role="img" aria-label="Interactive stadium zone map">
-        <svg viewBox="0 0 100 105" id="map-svg" xmlns="http://www.w3.org/2000/svg">
-          <!-- Stadium outline -->
-          <ellipse cx="50" cy="50" rx="46" ry="44" fill="none" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
-          <!-- Zones rendered dynamically by JS -->
+    <!-- Top Bar -->
+    <header class="topbar" role="banner">
+      <div class="topbar__brand">
+        <svg class="topbar__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M12 2a10 10 0 0 1 0 20" fill="none" stroke="var(--accent)" stroke-width="2" />
+          <circle cx="12" cy="12" r="3" fill="var(--accent)" />
         </svg>
+        <h1 class="topbar__title">Stadium Pulse AI</h1>
+        <span class="topbar__badge" id="ai-mode-badge">OFFLINE</span>
       </div>
-      <div class="zone-legend">
-        <span class="legend-item legend-item--low">Low</span>
-        <span class="legend-item legend-item--moderate">Moderate</span>
-        <span class="legend-item legend-item--high">High</span>
-        <span class="legend-item legend-item--critical">Critical</span>
+      <div class="topbar__status">
+        <span class="topbar__venue" id="venue-name">MetLife Stadium</span>
+        <span class="topbar__phase" id="match-phase">PRE-MATCH</span>
+        <span class="topbar__weather" id="weather-badge" aria-label="Weather status">☀️ Clear</span>
+        <button
+          class="topbar__btn"
+          id="theme-toggle"
+          aria-label="Toggle dark/light mode"
+          title="Toggle theme"
+        >
+          🌙
+        </button>
       </div>
-    </section>
+    </header>
 
-    <!-- Column 2: Stacked 2 Rows (Row 1: Live Operations | Row 2: AI Decision Center) -->
-    <div class="center-col">
-      <!-- Row 1 Container: Live Operations -->
-      <section class="panel panel--center" aria-label="Operations Feed">
+    <!-- Main Content Layout -->
+    <main id="main-content" class="command-center" role="main">
+      <!-- Column 1: Stadium Digital Twin Map -->
+      <section class="panel panel--map" aria-label="Stadium Digital Twin">
         <div class="panel__header">
-          <h2 class="panel__title">Live Operations</h2>
-          <span class="panel__counter" id="event-count">0 events</span>
+          <h2 class="panel__title">Digital Twin</h2>
+          <button
+            class="btn btn--sm btn--accent"
+            id="run-scenario-btn"
+            aria-label="Run connected demo scenario"
+          >
+            ▶ Run Demo
+          </button>
         </div>
-
-        <!-- Risk Cards -->
-        <div class="risk-cards" id="risk-cards" aria-live="polite" aria-label="Active risk indicators">
-          <div class="risk-card risk-card--placeholder">
-            <span class="risk-card__icon">✓</span>
-            <span class="risk-card__text">No active risks</span>
-          </div>
+        <div
+          class="stadium-map"
+          id="stadium-map"
+          role="img"
+          aria-label="Interactive stadium zone map"
+        >
+          <svg viewBox="0 0 100 105" id="map-svg" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stadium outline -->
+            <ellipse
+              cx="50"
+              cy="50"
+              rx="46"
+              ry="44"
+              fill="none"
+              stroke="var(--border)"
+              stroke-width="0.5"
+              opacity="0.3"
+            />
+            <!-- Zones rendered dynamically by JS -->
+          </svg>
         </div>
-
-        <!-- Queue Forecasts -->
-        <div class="queue-section">
-          <h3 class="section-title">Queue Forecasts</h3>
-          <div class="queue-bars" id="queue-bars" aria-label="Queue wait time forecasts"></div>
-        </div>
-
-        <!-- Event Feed -->
-        <div class="event-feed" id="event-feed" role="log" aria-live="polite" aria-label="Real-time event stream">
-          <div class="event-feed__empty">Waiting for events…</div>
+        <div class="zone-legend">
+          <span class="legend-item legend-item--low">Low</span>
+          <span class="legend-item legend-item--moderate">Moderate</span>
+          <span class="legend-item legend-item--high">High</span>
+          <span class="legend-item legend-item--critical">Critical</span>
         </div>
       </section>
 
-      <!-- Row 2 Container: AI Decision Center & Audit -->
-      <section class="panel panel--right" aria-label="AI Decisions and Actions">
+      <!-- Column 2: Stacked 2 Rows (Row 1: Live Operations | Row 2: AI Decision Center) -->
+      <div class="center-col">
+        <!-- Row 1 Container: Live Operations -->
+        <section class="panel panel--center" aria-label="Operations Feed">
+          <div class="panel__header">
+            <h2 class="panel__title">Live Operations</h2>
+            <span class="panel__counter" id="event-count">0 events</span>
+          </div>
+
+          <!-- Risk Cards -->
+          <div
+            class="risk-cards"
+            id="risk-cards"
+            aria-live="polite"
+            aria-label="Active risk indicators"
+          >
+            <div class="risk-card risk-card--placeholder">
+              <span class="risk-card__icon">✓</span>
+              <span class="risk-card__text">No active risks</span>
+            </div>
+          </div>
+
+          <!-- Queue Forecasts -->
+          <div class="queue-section">
+            <h3 class="section-title">Queue Forecasts</h3>
+            <div class="queue-bars" id="queue-bars" aria-label="Queue wait time forecasts"></div>
+          </div>
+
+          <!-- Event Feed -->
+          <div
+            class="event-feed"
+            id="event-feed"
+            role="log"
+            aria-live="polite"
+            aria-label="Real-time event stream"
+          >
+            <div class="event-feed__empty">Waiting for events…</div>
+          </div>
+        </section>
+
+        <!-- Row 2 Container: AI Decision Center & Audit -->
+        <section class="panel panel--right" aria-label="AI Decisions and Actions">
+          <div class="panel__header">
+            <h2 class="panel__title">AI Decision Center</h2>
+          </div>
+
+          <!-- AI Recommendation Drawer -->
+          <div class="decision-drawer" id="decision-drawer" aria-label="AI recommendations">
+            <div class="decision-drawer__empty">
+              <span class="decision-drawer__icon">🤖</span>
+              <p>No pending decisions. Run the demo scenario to see AI in action.</p>
+            </div>
+          </div>
+
+          <!-- Volunteer Board & Timeline in 2 columns -->
+          <div class="decisions-split">
+            <div class="volunteer-section">
+              <h3 class="section-title">Volunteer Dispatch</h3>
+              <div
+                class="volunteer-board"
+                id="volunteer-board"
+                aria-label="Volunteer assignments"
+              ></div>
+            </div>
+            <div class="timeline-section">
+              <h3 class="section-title">Decision Timeline</h3>
+              <div
+                class="audit-timeline"
+                id="audit-timeline"
+                role="log"
+                aria-live="polite"
+                aria-label="Audit trail"
+              ></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Column 3: AI Fan Assistant Chatbot (Always Visible) -->
+      <section class="panel panel--chatbot" aria-label="AI Fan Assistant Chatbot">
         <div class="panel__header">
-          <h2 class="panel__title">AI Decision Center</h2>
+          <h2 class="panel__title">🤖 AI Fan Assistant</h2>
+          <span class="panel__tag">Ground-Truth AI</span>
         </div>
-
-        <!-- AI Recommendation Drawer -->
-        <div class="decision-drawer" id="decision-drawer" aria-label="AI recommendations">
-          <div class="decision-drawer__empty">
-            <span class="decision-drawer__icon">🤖</span>
-            <p>No pending decisions. Run the demo scenario to see AI in action.</p>
+        <div class="chatbot-panel-body">
+          <div class="chatbot-form">
+            <label class="form-label"
+              >Current Location
+              <select id="chat-from" class="form-select">
+                <option value="gate-a">Gate A (North)</option>
+                <option value="gate-b" selected>Gate B (East)</option>
+                <option value="gate-c">Gate C (South)</option>
+                <option value="gate-d">Gate D (West)</option>
+                <option value="concourse-north">North Concourse</option>
+                <option value="concourse-east">East Concourse</option>
+              </select>
+            </label>
+            <label class="form-label"
+              >Destination Intent
+              <select id="chat-to" class="form-select">
+                <option value="sensory-room" selected>Sensory Room</option>
+                <option value="medical-east">First Aid East</option>
+                <option value="food-court-ne">Food Court NE</option>
+                <option value="restroom-north">Restrooms North</option>
+                <option value="transit-hub">Transit Hub</option>
+              </select>
+            </label>
+            <label class="form-label"
+              >Language
+              <select id="chat-lang" class="form-select">
+                <option value="en" selected>English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+              </select>
+            </label>
+            <fieldset class="form-fieldset">
+              <legend class="form-legend">Accessibility Needs</legend>
+              <label class="checkbox-label"
+                ><input type="checkbox" id="chat-acc-wheelchair" /> Wheelchair / Step-free</label
+              >
+              <label class="checkbox-label"
+                ><input type="checkbox" id="chat-acc-visual" /> Low Vision / Screen Reader</label
+              >
+              <label class="checkbox-label"
+                ><input type="checkbox" id="chat-acc-hearing" /> Hard of Hearing</label
+              >
+            </fieldset>
+            <label class="form-label"
+              >Ask a question (optional)
+              <input
+                type="text"
+                id="chat-question"
+                class="form-input"
+                placeholder="e.g. Where is the nearest step-free restroom?"
+              />
+            </label>
+            <button class="btn btn--accent btn--full" id="chat-send">Get AI Assistance</button>
           </div>
-        </div>
-
-        <!-- Volunteer Board & Timeline in 2 columns -->
-        <div class="decisions-split">
-          <div class="volunteer-section">
-            <h3 class="section-title">Volunteer Dispatch</h3>
-            <div class="volunteer-board" id="volunteer-board" aria-label="Volunteer assignments"></div>
-          </div>
-          <div class="timeline-section">
-            <h3 class="section-title">Decision Timeline</h3>
-            <div class="audit-timeline" id="audit-timeline" role="log" aria-live="polite" aria-label="Audit trail"></div>
-          </div>
+          <div class="chatbot-response" id="chatbot-response" aria-live="polite" hidden></div>
         </div>
       </section>
+    </main>
+
+    <!-- Scenario Progress Overlay -->
+    <div
+      class="scenario-overlay"
+      id="scenario-overlay"
+      role="dialog"
+      aria-label="Scenario progress"
+      hidden
+    >
+      <div class="scenario-card">
+        <h3 class="scenario-card__title">Connected Scenario Running</h3>
+        <div class="scenario-steps" id="scenario-steps"></div>
+        <button class="btn btn--accent" id="scenario-close" hidden>Close</button>
+      </div>
     </div>
 
-    <!-- Column 3: AI Fan Assistant Chatbot (Always Visible) -->
-    <section class="panel panel--chatbot" aria-label="AI Fan Assistant Chatbot">
-      <div class="panel__header">
-        <h2 class="panel__title">🤖 AI Fan Assistant</h2>
-        <span class="panel__tag">Ground-Truth AI</span>
-      </div>
-      <div class="chatbot-panel-body">
-        <div class="chatbot-form">
-          <label class="form-label">Current Location
-            <select id="chat-from" class="form-select">
-              <option value="gate-a">Gate A (North)</option>
-              <option value="gate-b" selected>Gate B (East)</option>
-              <option value="gate-c">Gate C (South)</option>
-              <option value="gate-d">Gate D (West)</option>
-              <option value="concourse-north">North Concourse</option>
-              <option value="concourse-east">East Concourse</option>
-            </select>
-          </label>
-          <label class="form-label">Destination Intent
-            <select id="chat-to" class="form-select">
-              <option value="sensory-room" selected>Sensory Room</option>
-              <option value="medical-east">First Aid East</option>
-              <option value="food-court-ne">Food Court NE</option>
-              <option value="restroom-north">Restrooms North</option>
-              <option value="transit-hub">Transit Hub</option>
-            </select>
-          </label>
-          <label class="form-label">Language
-            <select id="chat-lang" class="form-select">
-              <option value="en" selected>English</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="pt">Português</option>
-            </select>
-          </label>
-          <fieldset class="form-fieldset">
-            <legend class="form-legend">Accessibility Needs</legend>
-            <label class="checkbox-label"><input type="checkbox" id="chat-acc-wheelchair"> Wheelchair / Step-free</label>
-            <label class="checkbox-label"><input type="checkbox" id="chat-acc-visual"> Low Vision / Screen Reader</label>
-            <label class="checkbox-label"><input type="checkbox" id="chat-acc-hearing"> Hard of Hearing</label>
-          </fieldset>
-          <label class="form-label">Ask a question (optional)
-            <input type="text" id="chat-question" class="form-input" placeholder="e.g. Where is the nearest step-free restroom?">
-          </label>
-          <button class="btn btn--accent btn--full" id="chat-send">Get AI Assistance</button>
-        </div>
-        <div class="chatbot-response" id="chatbot-response" aria-live="polite" hidden></div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Scenario Progress Overlay -->
-  <div class="scenario-overlay" id="scenario-overlay" role="dialog" aria-label="Scenario progress" hidden>
-    <div class="scenario-card">
-      <h3 class="scenario-card__title">Connected Scenario Running</h3>
-      <div class="scenario-steps" id="scenario-steps"></div>
-      <button class="btn btn--accent" id="scenario-close" hidden>Close</button>
-    </div>
-  </div>
-
-  <script src="command-center.js"></script>
-</body>
+    <script src="command-center.js"></script>
+  </body>
 </html>

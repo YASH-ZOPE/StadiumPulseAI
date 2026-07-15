@@ -93,42 +93,61 @@ export function mountRoutes(app, ctx) {
   });
 
   /* ── Commands: approve / reject ────────────────── */
-  api.post('/commands/approve', ctx.requireJson || ((_r, _s, n) => n()), wrap(async (req, res) => {
-    const { decisionId, approvedActions } = req.body;
-    if (!decisionId) {
-      return res.status(400).json({ error: 'decisionId required', code: 'validation_error' });
-    }
-    const result = ctx.approval.approve(decisionId, approvedActions);
-    if (!result) {
-      return res.status(404).json({ error: 'Decision not found or already processed', code: 'not_found' });
-    }
-    res.json(result);
-  }));
+  api.post(
+    '/commands/approve',
+    ctx.requireJson || ((_r, _s, n) => n()),
+    wrap(async (req, res) => {
+      const { decisionId, approvedActions } = req.body;
+      if (!decisionId) {
+        return res.status(400).json({ error: 'decisionId required', code: 'validation_error' });
+      }
+      const result = ctx.approval.approve(decisionId, approvedActions);
+      if (!result) {
+        return res
+          .status(404)
+          .json({ error: 'Decision not found or already processed', code: 'not_found' });
+      }
+      res.json(result);
+    }),
+  );
 
-  api.post('/commands/reject', ctx.requireJson || ((_r, _s, n) => n()), wrap(async (req, res) => {
-    const { decisionId, reason } = req.body;
-    if (!decisionId) {
-      return res.status(400).json({ error: 'decisionId required', code: 'validation_error' });
-    }
-    const result = ctx.approval.reject(decisionId, reason);
-    if (!result) {
-      return res.status(404).json({ error: 'Decision not found or already processed', code: 'not_found' });
-    }
-    res.json(result);
-  }));
+  api.post(
+    '/commands/reject',
+    ctx.requireJson || ((_r, _s, n) => n()),
+    wrap(async (req, res) => {
+      const { decisionId, reason } = req.body;
+      if (!decisionId) {
+        return res.status(400).json({ error: 'decisionId required', code: 'validation_error' });
+      }
+      const result = ctx.approval.reject(decisionId, reason);
+      if (!result) {
+        return res
+          .status(404)
+          .json({ error: 'Decision not found or already processed', code: 'not_found' });
+      }
+      res.json(result);
+    }),
+  );
 
   /* ── Commands: inject event ────────────────────── */
-  api.post('/commands/inject-event', ctx.requireJson || ((_r, _s, n) => n()), wrap(async (req, res) => {
-    const evt = createEvent(req.body);
-    ctx.bus.emit('event:new', evt);
-    res.status(201).json(evt);
-  }));
+  api.post(
+    '/commands/inject-event',
+    ctx.requireJson || ((_r, _s, n) => n()),
+    wrap(async (req, res) => {
+      const evt = createEvent(req.body);
+      ctx.bus.emit('event:new', evt);
+      res.status(201).json(evt);
+    }),
+  );
 
   /* ── Simulation: run connected scenario ────────── */
-  api.post('/simulation/scenario', wrap(async (_req, res) => {
-    const result = await ctx.scenario.runConnectedDemo();
-    res.json(result);
-  }));
+  api.post(
+    '/simulation/scenario',
+    wrap(async (_req, res) => {
+      const result = await ctx.scenario.runConnectedDemo();
+      res.json(result);
+    }),
+  );
 
   /* ── Pending decisions ─────────────────────────── */
   api.get('/decisions/pending', (_req, res) => {
@@ -136,17 +155,20 @@ export function mountRoutes(app, ctx) {
   });
 
   /* ── AI Fan Assistant Chatbot ──────────────────── */
-  api.post('/assist', wrap(async (req, res) => {
-    const { question, currentZone, destination, language, accessibilityNeeds } = req.body || {};
-    const result = await ctx.gemini.answerFanQuestion({
-      question,
-      currentZone,
-      destination,
-      language,
-      accessibilityNeeds,
-    });
-    res.json(result);
-  }));
+  api.post(
+    '/assist',
+    wrap(async (req, res) => {
+      const { question, currentZone, destination, language, accessibilityNeeds } = req.body || {};
+      const result = await ctx.gemini.answerFanQuestion({
+        question,
+        currentZone,
+        destination,
+        language,
+        accessibilityNeeds,
+      });
+      res.json(result);
+    }),
+  );
 
   app.use('/api', api);
 }
