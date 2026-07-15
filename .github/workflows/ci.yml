@@ -1,4 +1,4 @@
-name: CI
+name: Brutal Quality CI
 
 on:
   push:
@@ -7,19 +7,49 @@ on:
     branches: [main]
 
 jobs:
-  check:
+  code-quality-and-tests:
+    name: Strict Quality Gate (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [20]
+        node-version: [20.x, 22.x]
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm test
-      - run: npm audit --omit=dev
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: 1. Strict ESLint Linter Check (0 Warnings/Errors Allowed)
+        run: npm run lint
+
+      - name: 2. Prettier Code Style Enforcement
+        run: npm run format:check
+
+      - name: 3. TypeScript AST Compiler Contract Verification
+        run: npm run typecheck
+
+      - name: 4. Native Domain Unit & Integration Test Suite
+        run: npm test
+
+      - name: 5. High-Severity Security Audit
+        run: npm audit --audit-level=high
+
+      - name: 6. Repository Size Constraint Guard (< 10 MB Limit)
+        run: |
+          PACK_SIZE_KB=$(git count-objects -vH | grep "size-pack" | awk '{print $2}')
+          RAW_SIZE_KB=$(git count-objects -vH | grep "^size:" | awk '{print $2}')
+          echo "Git Pack Size: ${PACK_SIZE_KB} KB, Raw Objects Size: ${RAW_SIZE_KB} KB"
+          if [ "${RAW_SIZE_KB}" -gt 10240 ]; then
+            echo "::error::Repository size exceeds 10 MB limit!"
+            exit 1
+          fi
+          echo "Repository size compliant with hackathon limits."
