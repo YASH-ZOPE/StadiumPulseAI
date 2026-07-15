@@ -6,20 +6,20 @@
 
 ---
 
-## 🎯 Problem Statement Alignment
+## 🎯 Problem Statement Alignment Matrix
 
-> Build a GenAI-enabled solution that enhances stadium operations and the overall tournament experience for fans, organizers, volunteers, or venue staff during FIFA World Cup 2026.
+> **Challenge**: Build a GenAI-enabled solution that enhances stadium operations and the overall tournament experience for fans, organizers, volunteers, or venue staff during FIFA World Cup 2026.
 
-| FIFA Challenge Vertical           | How Stadium Pulse AI Delivers It                         | Key GenAI Capability                                       |
-| :-------------------------------- | :------------------------------------------------------- | :--------------------------------------------------------- |
-| **1. Navigation**                 | Interactive digital twin venue map & BFS pathfinding     | Grounded wayfinding & step-free navigation                 |
-| **2. Crowd Management**           | Zone density monitoring & Cascade Impact Simulator       | Predicts cross-zone crowd flow spillover                   |
-| **3. Accessibility**              | Accessibility Guardian & broken route pathfinder         | Step-free routing & alternative corridor calculation       |
-| **4. Transportation**             | Transit pressure monitoring & shuttle adaptation         | Weather & volume-based adaptive transit routing            |
-| **5. Sustainability**             | Live Sustainability Tracker (waste, refills, power, CO₂) | Sustainability optimization actions & metrics              |
-| **6. Multilingual Assistance**    | AI Fan Assistant Chatbot & Alert Composer                | 5 Tournament Languages (EN, ES, FR, PT, AR)                |
-| **7. Operational Intelligence**   | Live stadium state snapshot & event bus pub/sub          | Decoupled telemetry, risk analysis & forecaster            |
-| **8. Real-Time Decision Support** | AI Incident Commander & Approval Gate                    | Coordinated multi-team action plans with operator approval |
+| FIFA Requirement Vertical         | Target Audience            | Source Code Implementation                                                                 | REST / WS Endpoint                | GenAI Capability                           |
+| :-------------------------------- | :------------------------- | :----------------------------------------------------------------------------------------- | :-------------------------------- | :----------------------------------------- |
+| **1. Navigation & Wayfinding**    | Fans & Guest Services      | [`src/digital-twin/venue-graph.js`](src/digital-twin/venue-graph.js)                       | `POST /api/assist`                | Grounded step-free wayfinding              |
+| **2. Crowd Management**           | Security & Organizers      | [`src/stadium-state/risk-analyzer.js`](src/stadium-state/risk-analyzer.js)                 | `GET /api/state/snapshot`         | Density threshold risk detection           |
+| **3. Accessibility Guardian**     | Wheelchair & Sensory Users | [`src/stadium-state/accessibility-guard.js`](src/stadium-state/accessibility-guard.js)     | `GET /api/state/snapshot`         | Corridor breach & sensory status           |
+| **4. Intelligent Transportation** | Transit Operations         | [`src/stadium-state/state-engine.js`](src/stadium-state/state-engine.js)                   | `GET /api/state/snapshot`         | Parking & shuttle pressure tracking        |
+| **5. Sustainability Tracker**     | Eco-Operations Staff       | [`src/stadium-state/state-engine.js`](src/stadium-state/state-engine.js)                   | `GET /api/state/snapshot`         | Waste, refills, clean power & CO₂          |
+| **6. Multilingual Assistance**    | Global Fans (5 Languages)  | [`src/decision-engine/gemini-orchestrator.js`](src/decision-engine/gemini-orchestrator.js) | `POST /api/assist`                | Gemini 2.0 Flash Q&A in EN, ES, FR, PT, AR |
+| **7. Operational Intelligence**   | Venue Operations Command   | [`src/transport/ws-handler.js`](src/transport/ws-handler.js)                               | `/ws/pulse`                       | Real-time WebSocket pub/sub stream         |
+| **8. Real-Time Decision Support** | Incident Commanders        | [`src/decision-engine/approval-gate.js`](src/decision-engine/approval-gate.js)             | `POST /api/decisions/:id/approve` | Coordinated multi-team response plans      |
 
 ---
 
