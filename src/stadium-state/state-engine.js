@@ -73,6 +73,15 @@ export class StateEngine {
       wheelchairAssistAvailable: 4,
     };
 
+    /* ── Sustainability ─────────────────────────── */
+    this._sustainability = {
+      wasteDivertedPercent: 88,
+      energyEfficiencyKW: 420,
+      waterRefillsCount: 14200,
+      co2SavedKg: 3850,
+      recyclingStatus: 'optimal',
+    };
+
     /* ── Match phase ────────────────────────────── */
     this._matchPhase = venueData.match?.phase || 'pre-match';
 
@@ -245,6 +254,7 @@ export class StateEngine {
         brokenRoutes: [...this._accessibility.brokenRoutes],
         alternativeRoutes: [...this._accessibility.alternativeRoutes],
       },
+      sustainability: { ...this._sustainability },
       volunteers: this._volunteers.map((v) => ({ ...v })),
       incidents: Object.fromEntries([...this._incidents.entries()].map(([k, v]) => [k, { ...v }])),
       pendingDecisions: [...this._pendingDecisions],
@@ -296,6 +306,11 @@ export class StateEngine {
   /** Get transport. */
   getTransport() {
     return { ...this._transport };
+  }
+
+  /** Get sustainability. */
+  getSustainability() {
+    return { ...this._sustainability };
   }
 
   /** Get incidents. */

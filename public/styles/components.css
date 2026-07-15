@@ -69,6 +69,31 @@
   margin-top: 4px;
 }
 
+/* ── Sustainability Metrics ───────────────────── */
+.sustainability-section {
+  padding: 0 16px 10px;
+  flex-shrink: 0;
+}
+
+.sustainability-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sus-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--success);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
 /* ── Queue Bars ────────────────────────────────── */
 .queue-section {
   padding: 0 16px 12px;

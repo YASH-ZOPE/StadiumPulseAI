@@ -10,14 +10,16 @@
 
 > Build a GenAI-enabled solution that enhances stadium operations and the overall tournament experience for fans, organizers, volunteers, or venue staff during FIFA World Cup 2026.
 
-| FIFA Challenge Vertical        | Our Solution                                       | Key AI Capability                                                            |
-| ------------------------------ | -------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **Crowd Management**           | Real-time zone density monitoring & risk detection | Density band categorization & cascade simulation                             |
-| **Accessibility & Navigation** | Accessibility Guardian & pathfinder                | Step-free route computation & alternative pathfinding                        |
-| **Multilingual Assistance**    | Multilingual Alert Composer & AI Fan Assistant     | Gemini-powered Q&A & announcement translation (EN, ES, FR, PT)               |
-| **Operational Intelligence**   | Cascade Impact Simulator                           | Predicts cross-zone crowd flow spillover before it occurs                    |
-| **Real-Time Decision Support** | AI Incident Commander & Approval Gate              | Multi-team coordinated action plan generation with human-in-the-loop control |
-| **Transportation**             | Transit pressure monitoring & shuttle adjustment   | Adaptive transit routing based on weather & crowd volume                     |
+| FIFA Challenge Vertical           | How Stadium Pulse AI Delivers It                         | Key GenAI Capability                                       |
+| :-------------------------------- | :------------------------------------------------------- | :--------------------------------------------------------- |
+| **1. Navigation**                 | Interactive digital twin venue map & BFS pathfinding     | Grounded wayfinding & step-free navigation                 |
+| **2. Crowd Management**           | Zone density monitoring & Cascade Impact Simulator       | Predicts cross-zone crowd flow spillover                   |
+| **3. Accessibility**              | Accessibility Guardian & broken route pathfinder         | Step-free routing & alternative corridor calculation       |
+| **4. Transportation**             | Transit pressure monitoring & shuttle adaptation         | Weather & volume-based adaptive transit routing            |
+| **5. Sustainability**             | Live Sustainability Tracker (waste, refills, power, CO₂) | Sustainability optimization actions & metrics              |
+| **6. Multilingual Assistance**    | AI Fan Assistant Chatbot & Alert Composer                | 5 Tournament Languages (EN, ES, FR, PT, AR)                |
+| **7. Operational Intelligence**   | Live stadium state snapshot & event bus pub/sub          | Decoupled telemetry, risk analysis & forecaster            |
+| **8. Real-Time Decision Support** | AI Incident Commander & Approval Gate                    | Coordinated multi-team action plans with operator approval |
 
 ---
 
