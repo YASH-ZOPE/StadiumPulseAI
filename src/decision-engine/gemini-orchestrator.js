@@ -1,3 +1,4 @@
+/* eslint-disable no-control-regex */
 /**
  * Gemini orchestrator — AI-powered coordinated decision maker.
  *
@@ -243,6 +244,8 @@ export class GeminiOrchestrator {
       crowdLevel: toZone?.densityBand || 'moderate',
       occupancy: `${Math.round((toZone?.density || 0.4) * 100)}%`,
       stepFreeRequired: isWheelchair,
+      visualSupportRequired: isVisual,
+      hearingSupportRequired: isHearing,
       weather: `${weather.condition} (${weather.severity})`,
       brokenRoutes: snapshot.accessibility.brokenRoutes.length,
     };

@@ -5,7 +5,7 @@
  * have broken wheelchair-friendly routes. When a break is detected, it emits
  * an event and computes alternative accessible paths.
  */
-import { findPath, accessibleCorridorsFrom } from '../digital-twin/venue-graph.js';
+import { findPath } from '../digital-twin/venue-graph.js';
 import { loadVenueData } from '../digital-twin/venue-graph.js';
 
 export class AccessibilityGuard {

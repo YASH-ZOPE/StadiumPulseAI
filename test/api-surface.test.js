@@ -4,10 +4,8 @@
  * Tests the HTTP endpoints without starting the real server by importing
  * the Express app directly.
  */
-import { describe, it, before } from 'node:test';
+import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-
-const BASE = `http://localhost:${process.env.PORT || 3000}`;
 
 /* These tests rely on the server NOT running in test — they test the route
    definitions by importing the app factory directly. For simplicity we test

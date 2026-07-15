@@ -1,3 +1,4 @@
+/* eslint-disable no-control-regex */
 /**
  * Security — rate limiters and input guards.
  */

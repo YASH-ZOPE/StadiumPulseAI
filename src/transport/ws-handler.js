@@ -1,3 +1,5 @@
+import { createEvent } from '../event-stream/event-schema.js';
+
 /**
  * WebSocket handler — real-time state push.
  *
@@ -37,12 +39,12 @@ export function attachWsHandler(wss, ctx) {
     }));
 
     /* Handle incoming commands from UI. */
-    ws.on('message', (raw) => {
+    ws.on('message', (data) => {
       try {
-        const msg = JSON.parse(raw.toString());
+        const msg = JSON.parse(data.toString());
         handleWsCommand(msg, ctx);
       } catch {
-        send(ws, 'error', { message: 'Invalid JSON' });
+        /* Ignore malformed WS payloads */
       }
     });
 
@@ -63,7 +65,6 @@ function handleWsCommand(msg, ctx) {
       ctx.approval.reject(msg.decisionId, msg.reason);
       break;
     case 'command:inject': {
-      const { createEvent } = require('../event-stream/event-schema.js');
       const evt = createEvent(msg.event);
       ctx.bus.emit('event:new', evt);
       break;

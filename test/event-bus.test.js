@@ -54,7 +54,9 @@ describe('EventBus', () => {
 
   it('should limit history size', () => {
     bus._historyMax = 3;
-    for (let i = 0; i < 5; i++) bus.emit('x', { i });
+    for (let i = 0; i < 5; i++) {
+      bus.emit('x', { i });
+    }
     assert.equal(bus.recentHistory(10).length, 3);
   });
 

@@ -6,7 +6,6 @@
  * factory so tests can create isolated instances.
  */
 import express from 'express';
-import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
 import { fileURLToPath } from 'node:url';
@@ -17,7 +16,6 @@ import env from './environment.js';
 import { createRateLimiters, requireJson } from '../security/rate-limiter.js';
 import { headerSecurity } from '../security/headers.js';
 import { mountRoutes } from '../transport/rest-routes.js';
-import { attachWsHandler } from '../transport/ws-handler.js';
 
 const publicDir = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'public');
 
