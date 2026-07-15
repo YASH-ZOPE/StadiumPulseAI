@@ -14,7 +14,7 @@ const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).cat
 /**
  * Mount all routes on the Express app.
  * @param {import('express').Express} app
- * @param {object} ctx — domain context
+ * @param {any} ctx — domain context
  */
 export function mountRoutes(app, ctx) {
   const api = Router();

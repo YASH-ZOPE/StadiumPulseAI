@@ -26,8 +26,8 @@ export const SOURCES = ['sensor', 'weather', 'operator', 'system', 'fan-feedback
 
 /**
  * Create a well-formed stadium event.
- * @param {object} raw
- * @returns {object} validated event
+ * @param {any} raw
+ * @returns {any} validated event
  */
 export function createEvent(raw) {
   if (!raw || typeof raw !== 'object') {

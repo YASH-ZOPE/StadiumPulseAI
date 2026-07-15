@@ -23,8 +23,8 @@ export class CascadeSimulator {
 
   /**
    * Analyse the cascade impact of a risk event or zone closure.
-   * @param {object} riskReport — from RiskAnalyzer
-   * @returns {object} cascade impact report
+   * @param {any} riskReport — from RiskAnalyzer
+   * @returns {any} cascade impact report
    */
   analyze(riskReport) {
     const snapshot = this._state.getSnapshot();
